@@ -388,3 +388,57 @@ section {
   position: relative;
   transition: all 0.3s ease;
 }
+
+
+.floating-image {
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
+.btn-rounded {
+    border-radius: 50px;
+}
+
+
+
+
+.floating-image {
+  animation: float 4s ease-in-out infinite;
+  max-width: 100%;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+.btn-rounded {
+  border-radius: 50px;
+}
+
+.hero-title {
+  color: white; 
+}
+
+
+@media (max-width: 576px) {
+  .hero-title {
+    font-size: 2rem;
+    margin-top: 100px;
+  }
+
+  .hero-desc {
+    font-size: 1rem;
+  }
+
+  .hero {
+    /* padding-top: 3rem; */
+    padding-bottom: 3rem;
+  }
+}

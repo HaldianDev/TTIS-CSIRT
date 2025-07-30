@@ -20,11 +20,26 @@
 ?>
 
 <?php if($file): ?>
-    <script nonce="<?php echo e(csp_nonce()); ?>">
-        document.addEventListener("DOMContentLoaded", function () {
-            PDFObject.embed("<?php echo e(asset('storage/' . $file->path)); ?>", "#my_pdf");
-        });
-    </script>
+  <script nonce="<?php echo e(csp_nonce()); ?>">
+    document.addEventListener("DOMContentLoaded", function () {
+        var options = {
+            url: "<?php echo e(asset('storage/' . $file->path)); ?>",
+            id: "#my_pdf"
+        };
+
+        // Coba embed
+        var pdfSupported = PDFObject.embed(options.url, options.id);
+
+        // Jika tidak didukung, tampilkan link download manual
+        if (!pdfSupported) {
+            document.querySelector(options.id).innerHTML = `
+                <p class="text-center">Browser tidak mendukung tampilan PDF langsung.<br>
+                <a href="${options.url}" class="btn btn-primary mt-3" target="_blank">Download PDF</a></p>
+            `;
+        }
+    });
+</script>
+
 <?php else: ?>
     <p class="text-center text-muted">Tidak ada file PDF yang tersedia.</p>
 <?php endif; ?>

@@ -442,3 +442,8 @@ section {
     padding-bottom: 3rem;
   }
 }
+
+.btn-group-lg > .btn,
+.btn-lg {
+  font-size: unset !important;
+}

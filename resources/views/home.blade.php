@@ -60,8 +60,11 @@
                                     <!-- Komunikasi e-mail <span class="text-warning">terenkripsi</span>? -->
                                      Komunikasi <span style="white-space: nowrap;">e-mail</span> <span class="text-warning">terenkripsi</span>?
                                 </h3>
-                                <p class="fs-5 text-light mb-4">
+                                <!-- <p class="fs-5 text-light mb-4">
                                     Gunakan <strong>Pretty Good Privacy (PGP)</strong> untuk menjaga keamanan data Anda dari ancaman siber.
+                                </p> -->
+                                <p class="fs-6 fs-md-5 text-light mb-3 px-3 px-md-0 text-center text-md-start">
+                                Gunakan <strong>Pretty Good Privacy (PGP)</strong> untuk menjaga keamanan data Anda dari ancaman siber.
                                 </p>
 
                                 @if ($keys->first())

@@ -10,7 +10,7 @@
                 @endforeach
                 <div style="text-align: center;">
                     <a class="navbar-brand" href="/">
-                        <img src="../img/logo.png" alt="" style="width: 350px; height: 350px;">
+                        <img src="../img/logo.png" alt="" style="width: 150px; height: 150px;">
                     </a>
                 </div>
                 <article class="my-3 fs-6">

@@ -83,8 +83,11 @@ section {
 }
 
 .logo {
-    max-height: 70px;
+    max-width: 40px;   /* maksimal lebar logo */
+    height: auto;       /* biar proporsi gambar tetap */
+    object-fit: contain;
 }
+
 
 /* hero */
 .hero {
@@ -447,3 +450,5 @@ section {
 .btn-lg {
   font-size: unset !important;
 }
+
+

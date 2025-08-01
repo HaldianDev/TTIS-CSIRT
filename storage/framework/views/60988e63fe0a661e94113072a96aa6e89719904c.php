@@ -3,9 +3,10 @@
     <div class="container">
       <a class="navbar-brand" href="/">
           <?php $__currentLoopData = $properties->take(1); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $property): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <img class="logo" src="<?php echo e(asset('storage/' . $property->image)); ?>" alt="<?php echo e($property->property); ?>">
+            <img class="logo img-fluid" src="<?php echo e(asset('storage/' . $property->image)); ?>" alt="<?php echo e($property->property); ?>">
           <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>    
       </a>
+
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>

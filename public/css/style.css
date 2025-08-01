@@ -82,10 +82,9 @@ section {
     color: #000;
 }
 
-.logo {
-    max-width: 40px;   /* maksimal lebar logo */
-    height: auto;       /* biar proporsi gambar tetap */
-    object-fit: contain;
+.logo{
+    max-height: 50px;
+    width: 40px;
 }
 
 

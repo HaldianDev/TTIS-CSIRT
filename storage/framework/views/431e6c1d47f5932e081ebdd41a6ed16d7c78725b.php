@@ -47,8 +47,12 @@
                 <?php $__currentLoopData = $posts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $post): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div class="col-lg-4 col-md-6 mb-4 d-flex">
                         <div class="modern-card cyber-border w-100 shadow-sm rounded-4 overflow-hidden">
-                            <div class="card-image">
-                                <img src="<?php echo e(asset('storage/' . $post->image)); ?>" alt="<?php echo e($post->category->name); ?>" class="img-fluid" style="height: 200px; object-fit: cover; width: 100%;">
+                            <div class="card-image mt-2">
+                                <!-- <img src="<?php echo e(asset('storage/' . $post->image)); ?>" alt="<?php echo e($post->category->name); ?>" class="img-fluid" style="height: 200px; object-fit: cover; width: 100%;"> -->
+                                <img src="<?php echo e($post->image ? asset('storage/' . $post->image) : asset('img/tb.png')); ?>"
+                                        alt="<?php echo e($post->category->name); ?>"
+                                        class="<?php echo e($post->image ? '' : 'd-block mx-auto'); ?>"
+                                        style="<?php echo e($post->image ? '' : 'width: 35%; height: 100%;'); ?>">
                             </div>
                             <div class="card-content d-flex flex-column p-3">
                                 <h5 class="card-title mb-2">

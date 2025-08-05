@@ -15,8 +15,13 @@
                     @foreach ($posts->take(6) as $post)
                         <div class="col-lg-4 col-sm-6 mb-4 d-flex">
                             <div class="modern-card cyber-border w-100">
-                                <div class="card-image">
-                                    <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->category->name }}">
+                                <div class="card-image mt-2">
+                                    <!-- <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->category->name }}">
+                                     <img src="../img/logo.png" alt=""  class="d-block mx-auto mt-1"  style="width: 50%; height: 100%;"> -->
+                                     <img src="{{ $post->image ? asset('storage/' . $post->image) : asset('img/logo.png') }}"
+                                        alt="{{ $post->category->name }}"
+                                        class="{{ $post->image ? '' : 'd-block mx-auto mt-1' }}"
+                                        style="{{ $post->image ? '' : 'width: 50%; height: 100%;' }}">
                                 </div>
                                 <div class="card-content d-flex flex-column p-3">
                                     <h5 class="card-title mb-2">
@@ -60,9 +65,6 @@
                                     <!-- Komunikasi e-mail <span class="text-warning">terenkripsi</span>? -->
                                      Komunikasi <span style="white-space: nowrap;">e-mail</span> <span class="text-warning">terenkripsi</span>?
                                 </h3>
-                                <!-- <p class="fs-5 text-light mb-4">
-                                    Gunakan <strong>Pretty Good Privacy (PGP)</strong> untuk menjaga keamanan data Anda dari ancaman siber.
-                                </p> -->
                                 <p class="fs-6 fs-md-5 text-light mb-3 px-3 px-md-0 text-center text-md-start">
                                 Gunakan <strong>Pretty Good Privacy (PGP)</strong> untuk menjaga keamanan data Anda dari ancaman siber.
                                 </p>

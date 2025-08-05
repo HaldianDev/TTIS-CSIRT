@@ -12,10 +12,11 @@
                         {{ Illuminate\Support\Str::limit(trim(html_entity_decode(strip_tags($profil->content))), 200) }}
                     </p>
                     <div class="mt-4 d-flex flex-column flex-sm-row justify-content-center justify-content-md-start">
-                        <a href="/profil" class="btn btn-outline-light me-sm-2 mb-2 mb-sm-0 btn-rounded">Request Info</a>
-                        <a href="{{ $profil->link }}" target="_blank" class="btn btn-warning text-dark btn-rounded" style="border: none;">
+                        <a href="/profil" class="btn btn-outline-light me-sm-2 mb-2 mb-sm-0 btn-rounded">Profile</a>
+                        <a href="{{ $profil->link }}" target="_blank" class="btn btn-warning text-dark btn-rounded" style="border: none; color: #000 !important;">
                             Laporkan Insiden
                         </a>
+
                     </div>
                 @endforeach
             </div>

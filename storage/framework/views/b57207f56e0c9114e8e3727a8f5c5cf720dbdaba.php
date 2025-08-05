@@ -14,10 +14,11 @@
 
                     </p>
                     <div class="mt-4 d-flex flex-column flex-sm-row justify-content-center justify-content-md-start">
-                        <a href="/profil" class="btn btn-outline-light me-sm-2 mb-2 mb-sm-0 btn-rounded">Request Info</a>
-                        <a href="<?php echo e($profil->link); ?>" target="_blank" class="btn btn-warning text-dark btn-rounded" style="border: none;">
+                        <a href="/profil" class="btn btn-outline-light me-sm-2 mb-2 mb-sm-0 btn-rounded">Profile</a>
+                        <a href="<?php echo e($profil->link); ?>" target="_blank" class="btn btn-warning text-dark btn-rounded" style="border: none; color: #000 !important;">
                             Laporkan Insiden
                         </a>
+
                     </div>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>

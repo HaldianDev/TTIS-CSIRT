@@ -18,10 +18,10 @@
                                 <div class="card-image mt-2">
                                     <!-- <img src="<?php echo e(asset('storage/' . $post->image)); ?>" alt="<?php echo e($post->category->name); ?>">
                                      <img src="../img/logo.png" alt=""  class="d-block mx-auto mt-1"  style="width: 50%; height: 100%;"> -->
-                                     <img src="<?php echo e($post->image ? asset('storage/' . $post->image) : asset('img/logo.png')); ?>"
+                                     <img src="<?php echo e($post->image ? asset('storage/' . $post->image) : asset('img/tb.png')); ?>"
                                         alt="<?php echo e($post->category->name); ?>"
-                                        class="<?php echo e($post->image ? '' : 'd-block mx-auto mt-1'); ?>"
-                                        style="<?php echo e($post->image ? '' : 'width: 50%; height: 100%;'); ?>">
+                                        class="<?php echo e($post->image ? '' : 'd-block mx-auto'); ?>"
+                                        style="<?php echo e($post->image ? '' : 'width: 35%; height: 100%;'); ?>">
                                 </div>
                                 <div class="card-content d-flex flex-column p-3">
                                     <h5 class="card-title mb-2">

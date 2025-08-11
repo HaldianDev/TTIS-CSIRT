@@ -42,7 +42,7 @@
             <div class="row">
               <div class="text-center">
                 <small>
-                  Copyright &copy; 2022 <?php $__currentLoopData = $profils->take(1); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $profil): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><span class="text-white mx-2"><?php echo e($profil->name); ?> .</span> <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                  Copyright &copy; <?php echo e(date('Y')); ?>  <?php $__currentLoopData = $profils->take(1); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $profil): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><span class="text-white mx-2"><?php echo e($profil->name); ?> .</span> <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                   All Rights Reserved
                 </small>
               </div>

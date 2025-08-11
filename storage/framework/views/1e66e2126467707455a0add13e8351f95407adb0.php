@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('container'); ?>
     <!-- Blog Section -->
     <section id="blog" class="py-5">

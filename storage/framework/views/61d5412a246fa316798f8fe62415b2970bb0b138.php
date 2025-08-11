@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('container'); ?>
 <div class="container mb-4 d-flex justify-content-center" style="margin-top: 7rem">
     <div class="col-md-8">
@@ -34,7 +32,7 @@
         if (!pdfSupported) {
             document.querySelector(options.id).innerHTML = `
                 <p class="text-center">Browser tidak mendukung tampilan PDF langsung.<br>
-                <a href="${options.url}" class="btn btn-primary mt-3" target="_blank">Download PDF</a></p>
+                <a href="${options.url}" class="btn btn-warning mt-3" target="_blank">Download PDF</a></p>
             `;
         }
     });

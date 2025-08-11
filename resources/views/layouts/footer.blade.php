@@ -41,7 +41,7 @@
             <div class="row">
               <div class="text-center">
                 <small>
-                  Copyright &copy; 2022 @foreach ($profils->take(1) as $profil)<span class="text-white mx-2">{{ $profil->name }} .</span> @endforeach
+                  Copyright &copy; {{ date('Y') }}  @foreach ($profils->take(1) as $profil)<span class="text-white mx-2">{{ $profil->name }} .</span> @endforeach
                   All Rights Reserved
                 </small>
               </div>

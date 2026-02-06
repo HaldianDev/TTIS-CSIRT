@@ -78,6 +78,8 @@ Route::get('/file', function(){
     ]);
 })->middleware(Spatie\Csp\AddCspHeaders::class);
 
+Route::get('/files/{filename}', [FileController::class, 'servePdf'])->name('files.servePdf');
+
 Route::get('/service', function(){
     return view('service', [
         "includeHero" => false,

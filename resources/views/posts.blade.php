@@ -48,9 +48,7 @@
                     <div class="col-lg-4 col-md-6 mb-4 d-flex">
                         <div class="modern-card cyber-border w-100 shadow-sm rounded-4 overflow-hidden">
                             <div class="card-image mt-2">
-                                <!-- <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->category->name }}" class="img-fluid" style="height: 200px; object-fit: cover; width: 100%;"> -->
-                                <img src="{{ $post->image ? asset('storage/' . $post->image) : asset('img/tb.png') }}"
-                                        alt="{{ $post->category->name }}"
+                                <img src="{{ $post->image ? Storage::url($post->image) : asset('img/tb.png') }}"
                                         class="{{ $post->image ? '' : 'd-block mx-auto' }}"
                                         style="{{ $post->image ? '' : 'width: 35%; height: 100%;' }}">
                             </div>

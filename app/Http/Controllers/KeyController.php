@@ -55,7 +55,7 @@ class KeyController extends Controller
     
             if($request->file()) {
                 $fileName = $request->file->getClientOriginalName();
-                $filePath = $request->file('file')->storeAs('public-key', $fileName, 'public');
+                $filePath = $request->file('file')->storeAs('public-key', $fileName, 's3');
     
                 $fileModel->name = $request->file->getClientOriginalName();
                 $fileModel->path = $filePath;

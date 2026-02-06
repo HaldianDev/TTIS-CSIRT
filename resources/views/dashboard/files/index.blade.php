@@ -27,7 +27,7 @@
               <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $file->name }}</td>
-                <td>{{ $file->path }}</td>
+                <td><a href="{{ Storage::disk('s3')->url($file->path) }}" target="_blank">{{ $file->name }}</a></td>
                 <td>
                   <form action="/dashboard/files/{{ $file->name }}" method="post" class="d-inline">
                     @method('delete')

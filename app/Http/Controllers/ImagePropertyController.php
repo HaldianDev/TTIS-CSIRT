@@ -54,10 +54,9 @@ class ImagePropertyController extends Controller
         ]);
 
         if($request->file('image')) {
-            $validatedData['image'] = $request->file('image')->store('image-property');
-        }
-
-        $validatedData['slug'] = Str::slug($validatedData['name'],'-');
+                        $validatedData['image'] = $request->file('image')->store('image-property', 's3');
+                    }
+                    $validatedData['slug'] = Str::slug($validatedData['name'],'-');
 
         ImageProperty::create($validatedData);
 
@@ -114,7 +113,7 @@ class ImagePropertyController extends Controller
             if($property->image){
                 Storage::delete($property->image);
             }
-            $validatedData['image'] = $request->file('image')->store('image-property');
+            $validatedData['image'] = $request->file('image')->store('image-property', 's3');
         }
 
         $validatedData['slug'] = Str::slug($request->name,'-');

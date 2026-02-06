@@ -52,6 +52,8 @@ class ServiceController extends Controller
             'content' => 'required'
         ]);
 
+        $validatedData['content'] = strip_tags($validatedData['content']);
+
         $validatedData['slug'] = Str::slug($validatedData['name'],'-');
 
         Service::create($validatedData);
@@ -105,7 +107,7 @@ class ServiceController extends Controller
             'content' => 'required'
         ]);
 
-        $validatedData['slug'] = Str::slug($validatedData['name'],'-');
+        $validatedData['content'] = strip_tags($validatedData['content']);
 
         Service::where('id', $service->id)->update($validatedData);
 

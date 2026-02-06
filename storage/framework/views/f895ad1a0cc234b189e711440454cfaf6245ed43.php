@@ -1,6 +1,4 @@
-@extends('layouts.main')
-
-@section('container')
+<?php $__env->startSection('container'); ?>
     <!-- Blog Section -->
     <section id="blog" class="py-5">
         <div class="container">
@@ -10,36 +8,37 @@
                 </div>
             </div>
 
-            @if ($posts->count())
+            <?php if($posts->count()): ?>
                 <div class="row">
-                    @foreach ($posts->take(6) as $post)
+                    <?php $__currentLoopData = $posts->take(6); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $post): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <div class="col-lg-4 col-sm-6 mb-4 d-flex">
                             <div class="modern-card cyber-border w-100">
                                 <div class="card-image mt-2">
                              
 
-                                     <img src="{{ $post->image ? Storage::disk('s3')->url($post->image) : asset('img/tb.png') }}"
-                                        class="{{ $post->image ? '' : 'd-block mx-auto' }}"
-                                        style="{{ $post->image ? '' : 'width: 35%; height: 100%;' }}">
+                                     <img src="<?php echo e($post->image ? Storage::disk('s3')->url($post->image) : asset('img/tb.png')); ?>"
+                                        class="<?php echo e($post->image ? '' : 'd-block mx-auto'); ?>"
+                                        style="<?php echo e($post->image ? '' : 'width: 35%; height: 100%;'); ?>">
                                 </div>
                                 <div class="card-content d-flex flex-column p-3">
                                     <h5 class="card-title mb-2">
-                                        <a href="/posts/{{ $post->slug }}" class="text-dark fw-semibold">{{ $post->title }}</a>
+                                        <a href="/posts/<?php echo e($post->slug); ?>" class="text-dark fw-semibold"><?php echo e($post->title); ?></a>
                                     </h5>
                                     <p class="small text-muted mb-2">
-                                        By <a href="/posts?author={{ $post->author->username }}" class="text-decoration-none fw-medium">{{ $post->author->name }}</a>
-                                        • {{ date('M d, Y', strtotime($post->created_at)) }}
+                                        By <a href="/posts?author=<?php echo e($post->author->username); ?>" class="text-decoration-none fw-medium"><?php echo e($post->author->name); ?></a>
+                                        • <?php echo e(date('M d, Y', strtotime($post->created_at))); ?>
+
                                     </p>
-                                    <p class="card-text mb-3 text-secondary">{{ $post->excerpt }}</p>
-                                    <a href="/posts/{{ $post->slug }}" class="btn btn-outline-success btn-sm mt-auto align-self-start">Read More →</a>
+                                    <p class="card-text mb-3 text-secondary"><?php echo e($post->excerpt); ?></p>
+                                    <a href="/posts/<?php echo e($post->slug); ?>" class="btn btn-outline-success btn-sm mt-auto align-self-start">Read More →</a>
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
-            @else
+            <?php else: ?>
                 <p class="text-center fs-4">No Post Found</p>
-            @endif
+            <?php endif; ?>
             <div class="d-flex justify-content-center mt-4">
                 <a href="/posts"
                     class="btn btn-lg fw-semibold shadow rounded-pill text-white"
@@ -56,7 +55,7 @@
         <section>
             <div class="container">
                 <div class="bg-gradient-dark rounded-4 p-5 p-xl-6 shadow-lg text-center position-relative overflow-hidden encryption-section">
-                    <div class="position-absolute top-0 start-0 w-100 h-100 opacity-10" style="background-image: url('{{ Storage::disk('s3')->url('images/encryption-bg.svg') }}'); background-size: cover;"></div>
+                    <div class="position-absolute top-0 start-0 w-100 h-100 opacity-10" style="background-image: url('<?php echo e(Storage::disk('s3')->url('images/encryption-bg.svg')); ?>'); background-size: cover;"></div>
                     <div class="container my-5">
                     <div class="row justify-content-center">
                             <div class="col-12 col-md-10 col-lg-8 text-center position-relative px-3">
@@ -68,16 +67,16 @@
                                 Gunakan <strong>Pretty Good Privacy (PGP)</strong> untuk menjaga keamanan data Anda dari ancaman siber.
                                 </p>
 
-                                @if ($keys->first())
-                                    <a href="{{ Storage::disk('s3')->url('public-key/' . $keys->first()->name) }}"
+                                <?php if($keys->first()): ?>
+                                    <a href="<?php echo e(Storage::disk('s3')->url('public-key/' . $keys->first()->name)); ?>"
                                         class="btn btn-warning btn-lg fw-semibold shadow rounded-pill text-white"
                                         data-aos="zoom-in" data-aos-delay="200" target="_blank">
                                         🔐 Unduh PGP Key
                                     </a>
                                   
-                                @else
+                                <?php else: ?>
                                     <p class="text-light">PGP Key belum tersedia.</p>
-                                @endif
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -85,4 +84,6 @@
             </div>
         </section>
         <!-- End Email Encryption Section -->
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/a/projectAldi/TTIS-CSIRT/resources/views/home.blade.php ENDPATH**/ ?>

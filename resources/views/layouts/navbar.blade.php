@@ -3,7 +3,7 @@
     <div class="container">
       <a class="navbar-brand" href="/">
           @foreach ($properties->take(1) as $property)
-            <img class="logo img-fluid" src="{{ asset('storage/' . $property->image) }}" alt="{{ $property->property }}">
+            <img class="logo img-fluid" src="{{ Storage::disk('s3')->url($property->image) }}" alt="{{ $property->property }}">
           @endforeach    
       </a>
 

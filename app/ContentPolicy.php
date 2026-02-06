@@ -19,7 +19,10 @@ class ContentPolicy extends Policy
             ->addDirective(Directive::IMG, [
                 Keyword::SELF,
                 'data:',
-                'blob:'
+                'blob:',
+                env('APP_URL'),
+                env('AWS_URL'),
+                parse_url(env('AWS_URL'), PHP_URL_SCHEME) . '://' . parse_url(env('AWS_URL'), PHP_URL_HOST) . ':' . parse_url(env('AWS_URL'), PHP_URL_PORT),
             ])
             ->addDirective(Directive::MEDIA, Keyword::SELF)
             ->addDirective(Directive::SCRIPT, [

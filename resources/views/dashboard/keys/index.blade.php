@@ -27,7 +27,7 @@
               <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $key->name }}</td>
-                <td>{{ $key->path }}</td>
+                <td><a href="{{ Storage::disk('s3')->url($key->path) }}" target="_blank">{{ $key->name }}</a></td>
                 <td>
                   <form action="/dashboard/keys/{{ $key->name }}" method="post" class="d-inline">
                     @method('delete')

@@ -64,6 +64,8 @@ class DashboardPostController extends Controller
             'body' => 'required'
         ]);
 
+        $validatedData['body'] = strip_tags($validatedData['body']);
+
         if($request->has('published')){
             $validatedData['published'] = true;
         } else {
@@ -71,7 +73,7 @@ class DashboardPostController extends Controller
         }
 
         if($request->file('image')) {
-            $validatedData['image'] = $request->file('image')->store('post-image');
+            $validatedData['image'] = $request->file('image')->store('post-image', 's3');
         }
 
         $validatedData['user_id'] = auth()->user()->id;
@@ -139,6 +141,8 @@ class DashboardPostController extends Controller
 
         $validatedData = $request->validate($rules);
 
+        $validatedData['body'] = strip_tags($validatedData['body']);
+
         if($request->has('published')){
             $validatedData['published'] = true;
         } else {
@@ -149,7 +153,7 @@ class DashboardPostController extends Controller
             if($post->image){
                 Storage::delete($post->image);
             }
-            $validatedData['image'] = $request->file('image')->store('post-image');
+            $validatedData['image'] = $request->file('image')->store('post-image', 's3');
         }
 
         $validatedData['user_id'] = auth()->user()->id;

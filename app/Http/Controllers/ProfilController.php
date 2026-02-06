@@ -50,6 +50,8 @@ class ProfilController extends Controller
             'link' => 'required'
         ]);
 
+        $validatedData['content'] = strip_tags($validatedData['content']);
+
         $validatedData['slug'] = Str::slug($validatedData['name'],'-');
 
         Profil::create($validatedData);

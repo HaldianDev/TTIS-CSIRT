@@ -79,7 +79,7 @@ class FileController extends Controller
             $safeName = preg_replace('/[^A-Za-z0-9_\-]/', '_', $originalName);
             $fileName = $safeName . '_' . time() . '.' . $request->file->extension();
 
-            $filePath = $request->file('file')->storeAs('uploads', $fileName, 'public');
+            $filePath = $request->file('file')->storeAs('uploads', $fileName, 's3');
 
             $fileModel->name = $fileName;
             $fileModel->path = $filePath;
@@ -87,6 +87,20 @@ class FileController extends Controller
 
             return redirect('/dashboard/files')->with('success', 'File has been uploaded!');
         }
+    }
+
+    public function servePdf($filename)
+    {
+        $filePath = 'uploads/' . $filename; // Assuming files are stored in 'uploads' folder
+
+        if (Storage::disk('s3')->exists($filePath)) {
+            $fileContents = Storage::disk('s3')->get($filePath);
+            $mimeType = Storage::disk('s3')->mimeType($filePath);
+
+            return response($fileContents, 200)->header('Content-Type', $mimeType);
+        }
+
+        abort(404);
     }
 
 

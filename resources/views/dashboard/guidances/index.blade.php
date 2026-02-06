@@ -29,7 +29,7 @@
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $guidance->name }}</td>
                 <td>{{ number_format(round($guidance->size / 1024, 2),2,",",".") }} Kb</td>
-                <td>{{ $guidance->path }}</td>
+                <td><a href="{{ Storage::disk('s3')->url($guidance->path) }}" target="_blank">{{ $guidance->name }}</a></td>
                 <td>
                     <a href="/dashboard/guidances/{{ $guidance->slug}}/edit" class="badge bg-warning text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><span data-feather="edit"></span></a>
                     <form action="/dashboard/guidances/{{ $guidance->slug }}" method="post" class="d-inline">

@@ -49,20 +49,20 @@ class KeyController extends Controller
     {
         $request->validate([
             'file' => 'mimetypes:application/pgp-keys|required|max:1024'
-            ]);
-    
-            $fileModel = new Key;
-    
-            if($request->file()) {
-                $fileName = $request->file->getClientOriginalName();
-                $filePath = $request->file('file')->storeAs('public-key', $fileName, 's3');
-    
-                $fileModel->name = $request->file->getClientOriginalName();
-                $fileModel->path = $filePath;
-                $fileModel->save();
-    
-                return redirect('/dashboard/keys')->with('success', 'Public Key Has been uploaded !');
-            }
+        ]);
+
+        $fileModel = new Key;
+
+        if ($request->file()) {
+            $fileName = $request->file->getClientOriginalName();
+            $filePath = $request->file('file')->storeAs('public-key', $fileName, 's3');
+
+            $fileModel->name = $request->file->getClientOriginalName();
+            $fileModel->path = $filePath;
+            $fileModel->save();
+
+            return redirect('/dashboard/keys')->with('success', 'Public Key Has been uploaded !');
+        }
     }
 
     /**
@@ -107,11 +107,24 @@ class KeyController extends Controller
      */
     public function destroy(Key $key)
     {
-        if($key->path) {
+        if ($key->path) {
             Storage::delete($key->path);
         }
         Key::destroy($key->id);
 
         return redirect('/dashboard/keys')->with('success', 'File has been deleted!');
+    }
+
+    public function serve(Key $key)
+    {
+        if ($key->path && Storage::disk('s3')->exists($key->path)) {
+            $fileContents = Storage::disk('s3')->get($key->path);
+            $mimeType = Storage::disk('s3')->mimeType($key->path);
+
+            return response($fileContents, 200)->header('Content-Type', $mimeType)
+                ->header('Content-Disposition', 'attachment; filename="' . $key->name . '"');
+        }
+
+        abort(404);
     }
 }

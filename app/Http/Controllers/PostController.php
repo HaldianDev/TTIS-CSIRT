@@ -12,6 +12,7 @@ use App\Models\ImageProperty;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Key;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -22,18 +23,18 @@ class PostController extends Controller
      */
     public function index()
     {
-        $title ='';
-        if(request('category')){
+        $title = '';
+        if (request('category')) {
             $category = Category::firstWhere('slug', request('category'));
             $title = ' in ' . $category->name;
         }
 
-        if(request('author')){
+        if (request('author')) {
             $author = User::firstWhere('username', request('author'));
             $title = ' by ' . $author->name;
         }
 
-        return view('posts',[
+        return view('posts', [
             "title" => "All Posts" . $title,
             "active" => 'posts',
             "includeHero" => false,
@@ -76,22 +77,24 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Post $post)
-    {   
-        return view('post', [
-            "title" => "Single Post",
-            "active" => 'posts',
-            "includeHero" => false,
-            'profils' => Profil::latest()->get(),
-            'footers' => Footer::latest()->get(),
-            'posts' => Post::where('published', true)->latest()->get(),
-            'files' => File::latest()->get(),
-            'categories' => Category::all(),
-            'keys' => Key::latest()->get(),
-            'propertiez'  => ImageProperty::where('property', 'Banner')->latest()->get(),
-            'properties' => ImageProperty::where('property', 'Logo')->latest()->get(),
-            "post" => $post
-        ]
-    );
+    {
+        return view(
+            'post',
+            [
+                "title" => "Single Post",
+                "active" => 'posts',
+                "includeHero" => false,
+                'profils' => Profil::latest()->get(),
+                'footers' => Footer::latest()->get(),
+                'posts' => Post::where('published', true)->latest()->get(),
+                'files' => File::latest()->get(),
+                'categories' => Category::all(),
+                'keys' => Key::latest()->get(),
+                'propertiez'  => ImageProperty::where('property', 'Banner')->latest()->get(),
+                'properties' => ImageProperty::where('property', 'Logo')->latest()->get(),
+                "post" => $post
+            ]
+        );
     }
 
     /**
@@ -126,5 +129,17 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
+    }
+
+    public function serveImage(Post $post)
+    {
+        if ($post->image && Storage::disk('s3')->exists($post->image)) {
+            $fileContents = Storage::disk('s3')->get($post->image);
+            $mimeType = Storage::disk('s3')->mimeType($post->image);
+
+            return response($fileContents, 200)->header('Content-Type', $mimeType);
+        }
+
+        abort(404);
     }
 }

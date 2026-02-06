@@ -8994,3 +8994,7 @@
 #74 /home/a/projectAldi/TTIS-CSIRT/server.php(21): require_once('...')
 #75 {main}
 "} 
+[2026-02-06 07:35:43] local.ERROR: Cannot use App\Http\Requests\UpdatePostRequest as UpdatePostRequest because the name is already in use {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Cannot use App\\Http\\Requests\\UpdatePostRequest as UpdatePostRequest because the name is already in use at /home/user/project/TTIS-CSIRT/app/Http/Controllers/PostController.php:14)
+[stacktrace]
+#0 {main}
+"} 

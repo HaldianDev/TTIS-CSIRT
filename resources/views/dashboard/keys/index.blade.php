@@ -6,38 +6,41 @@
     </div>
 
     @if (session()->has('success'))
-      <div class="alert alert-success col-lg-8" role="alert">
-        {{ session('success') }}
-      </div> 
+        <div class="alert alert-success col-lg-8" role="alert">
+            {{ session('success') }}
+        </div>
     @endif
 
     <div class="table-responsive col-lg-8">
-      <a href="/dashboard/keys/create" class="btn btn-primary mb-3" data-bs-toggle="tooltip" data-bs-placement="top" title="Upload">Upload a Public Key</a>
+        <a href="/dashboard/keys/create" class="btn btn-primary mb-3" data-bs-toggle="tooltip" data-bs-placement="top"
+            title="Upload">Upload a Public Key</a>
         <table class="table table-striped table-sm">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Name</th>
-              <th scope="col">File Path</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-          @foreach ($keys as $key)
-              <tr>
-                <td>{{ $loop->iteration }}</td>
-                <td>{{ $key->name }}</td>
-                <td><a href="{{ Storage::disk('s3')->url($key->path) }}" target="_blank">{{ $key->name }}</a></td>
-                <td>
-                  <form action="/dashboard/keys/{{ $key->name }}" method="post" class="d-inline">
-                    @method('delete')
-                    @csrf
-                    <button class="badge bg-danger border-0" onclick="return confirm('Are you sure?')" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><span data-feather="x-circle"></span> DELETE</button>
-                  </form>
-                </td>
-              </tr>    
-              @endforeach
-          </tbody>
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">File Path</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($keys as $key)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $key->name }}</td>
+                        <td><a href="{{ route('keys.serve', $key->name) }}" target="_blank">{{ $key->name }}</a></td>
+                        <td>
+                            <form action="/dashboard/keys/{{ $key->name }}" method="post" class="d-inline">
+                                @method('delete')
+                                @csrf
+                                <button class="badge bg-danger border-0" onclick="return confirm('Are you sure?')"
+                                    data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><span
+                                        data-feather="x-circle"></span> DELETE</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
         </table>
-      </div>
+    </div>
 @endsection

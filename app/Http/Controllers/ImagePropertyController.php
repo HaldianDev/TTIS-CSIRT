@@ -18,7 +18,7 @@ class ImagePropertyController extends Controller
      */
     public function index()
     {
-        
+
 
         return view('dashboard.properties.index', [
             'profils' => Profil::latest()->get(),
@@ -53,10 +53,10 @@ class ImagePropertyController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
-        if($request->file('image')) {
-                        $validatedData['image'] = $request->file('image')->store('image-property', 's3');
-                    }
-                    $validatedData['slug'] = Str::slug($validatedData['name'],'-');
+        if ($request->file('image')) {
+            $validatedData['image'] = $request->file('image')->store('image-property', 's3');
+        }
+        $validatedData['slug'] = Str::slug($validatedData['name'], '-');
 
         ImageProperty::create($validatedData);
 
@@ -103,20 +103,20 @@ class ImagePropertyController extends Controller
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ];
 
-        if($request->name != $property->name){
+        if ($request->name != $property->name) {
             $rules['name'] = 'required|max:255|unique:image_properties';
         }
 
         $validatedData = $request->validate($rules);
 
-        if($request->file('image')) {
-            if($property->image){
+        if ($request->file('image')) {
+            if ($property->image) {
                 Storage::delete($property->image);
             }
             $validatedData['image'] = $request->file('image')->store('image-property', 's3');
         }
 
-        $validatedData['slug'] = Str::slug($request->name,'-');
+        $validatedData['slug'] = Str::slug($request->name, '-');
 
         ImageProperty::where('id', $property->id)->update($validatedData);
 
@@ -131,12 +131,37 @@ class ImagePropertyController extends Controller
      */
     public function destroy(ImageProperty $property)
     {
-        
-        if($property->image) {
-           Storage::delete($property->image);
+
+        if ($property->image) {
+            Storage::delete($property->image);
         }
         ImageProperty::destroy($property->id);
 
         return redirect('/dashboard/properties')->with('success', 'Property has been deleted!');
+    }
+
+    public function serve(ImageProperty $property)
+    {
+        if (Storage::disk('s3')->exists($property->image)) {
+            $fileContents = Storage::disk('s3')->get($property->image);
+            $mimeType = Storage::disk('s3')->mimeType($property->image);
+
+            return response($fileContents, 200)->header('Content-Type', $mimeType);
+        }
+
+        abort(404);
+    }
+
+    public function serveAsset($path)
+    {
+        $fullPath = 'images/' . $path; // Based on usage: Storage::disk('s3')->url('images/encryption-bg.svg')
+        if (Storage::disk('s3')->exists($fullPath)) {
+            $fileContents = Storage::disk('s3')->get($fullPath);
+            $mimeType = Storage::disk('s3')->mimeType($fullPath);
+
+            return response($fileContents, 200)->header('Content-Type', $mimeType);
+        }
+
+        abort(404);
     }
 }

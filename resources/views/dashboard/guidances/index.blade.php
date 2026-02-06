@@ -6,41 +6,47 @@
     </div>
 
     @if (session()->has('success'))
-      <div class="alert alert-success col-lg-10" role="alert">
-        {{ session('success') }}
-      </div> 
+        <div class="alert alert-success col-lg-10" role="alert">
+            {{ session('success') }}
+        </div>
     @endif
 
     <div class="table-responsive col-lg-10 mb-4">
-      <a href="/dashboard/guidances/create" class="btn btn-primary mb-3" data-bs-toggle="tooltip" data-bs-placement="top" title="Upload">Upload a New File</a>
+        <a href="/dashboard/guidances/create" class="btn btn-primary mb-3" data-bs-toggle="tooltip" data-bs-placement="top"
+            title="Upload">Upload a New File</a>
         <table class="table table-striped table-sm">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Name</th>
-              <th scope="col">Size</th>
-              <th scope="col">File Path</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-          @foreach ($guidances as $guidance)
-              <tr>
-                <td>{{ $loop->iteration }}</td>
-                <td>{{ $guidance->name }}</td>
-                <td>{{ number_format(round($guidance->size / 1024, 2),2,",",".") }} Kb</td>
-                <td><a href="{{ Storage::disk('s3')->url($guidance->path) }}" target="_blank">{{ $guidance->name }}</a></td>
-                <td>
-                    <a href="/dashboard/guidances/{{ $guidance->slug}}/edit" class="badge bg-warning text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><span data-feather="edit"></span></a>
-                    <form action="/dashboard/guidances/{{ $guidance->slug }}" method="post" class="d-inline">
-                        @method('delete')
-                        @csrf
-                        <button class="badge bg-danger border-0" onclick="return confirm('Are you sure?')" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><span data-feather="x-circle"></span></button>
-                    </form>
-                </td>
-              </tr>    
-              @endforeach
-          </tbody>
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Size</th>
+                    <th scope="col">File Path</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($guidances as $guidance)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $guidance->name }}</td>
+                        <td>{{ number_format(round($guidance->size / 1024, 2), 2, ',', '.') }} Kb</td>
+                        <td><a href="{{ route('guidances.serve', $guidance->slug) }}"
+                                target="_blank">{{ $guidance->name }}</a></td>
+                        <td>
+                            <a href="/dashboard/guidances/{{ $guidance->slug }}/edit"
+                                class="badge bg-warning text-decoration-none" data-bs-toggle="tooltip"
+                                data-bs-placement="top" title="Edit"><span data-feather="edit"></span></a>
+                            <form action="/dashboard/guidances/{{ $guidance->slug }}" method="post" class="d-inline">
+                                @method('delete')
+                                @csrf
+                                <button class="badge bg-danger border-0" onclick="return confirm('Are you sure?')"
+                                    data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><span
+                                        data-feather="x-circle"></span></button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
         </table>
     </div>
 @endsection

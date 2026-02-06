@@ -64,7 +64,7 @@ Route::get('/profil', function () {
     ]);
 })->middleware(Spatie\Csp\AddCspHeaders::class);
 
-Route::get('/file', function(){
+Route::get('/file', function () {
     return view('file', [
         "includeHero" => false,
         'footers' => Footer::latest()->get(),
@@ -79,8 +79,13 @@ Route::get('/file', function(){
 })->middleware(Spatie\Csp\AddCspHeaders::class);
 
 Route::get('/files/{filename}', [FileController::class, 'servePdf'])->name('files.servePdf');
+Route::get('/images/serve/{property}', [ImagePropertyController::class, 'serve'])->name('images.serve');
+Route::get('/posts/image/{post}', [PostController::class, 'serveImage'])->name('posts.image');
+Route::get('/guidances/file/{guidance}', [GuidanceController::class, 'serve'])->name('guidances.serve');
+Route::get('/keys/file/{key}', [KeyController::class, 'serve'])->name('keys.serve');
+Route::get('/assets/images/{path}', [ImagePropertyController::class, 'serveAsset'])->name('images.asset')->where('path', '.*');
 
-Route::get('/service', function(){
+Route::get('/service', function () {
     return view('service', [
         "includeHero" => false,
         'footers' => Footer::latest()->get(),
@@ -95,7 +100,7 @@ Route::get('/service', function(){
     ]);
 })->middleware(Spatie\Csp\AddCspHeaders::class);
 
-Route::get('/guidance', function(){
+Route::get('/guidance', function () {
     return view('guidance', [
         "includeHero" => false,
         'footers' => Footer::latest()->get(),
@@ -111,7 +116,7 @@ Route::get('/guidance', function(){
     ]);
 })->middleware(Spatie\Csp\AddCspHeaders::class);
 
-Route::get('/contact', function(){
+Route::get('/contact', function () {
     return view('contact', [
         "includeHero" => false,
         'footers' => Footer::latest()->get(),
@@ -120,31 +125,31 @@ Route::get('/contact', function(){
         'posts' => Post::where('published', true)->latest()->get(),
         'files' => File::latest()->get(),
         'keys' => Key::latest()->get(),
-        'services' => Service::latest()->get(), 
+        'services' => Service::latest()->get(),
         'propertiez'  => ImageProperty::where('property', 'Banner')->latest()->get(),
         'properties' => ImageProperty::where('property', 'Logo')->latest()->get()
     ]);
 })->middleware(Spatie\Csp\AddCspHeaders::class);
 
 
-Route::get('/tubagoid', [LoginController::class, 'index'])->name('login')->middleware('white.list', 'restrict.ip', 'guest',Spatie\Csp\AddCspHeaders::class);
+Route::get('/tubagoid', [LoginController::class, 'index'])->name('login')->middleware('white.list', 'restrict.ip', 'guest', Spatie\Csp\AddCspHeaders::class);
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::get('/login/reload-captcha', [LoginController::class, 'reloadCaptcha']);
 Route::post('/logout', [LoginController::class, 'logout']);
 
 
 Route::get('/register', [RegisterController::class, 'index'])->middleware('admin');
-Route::get('/register/showChangePasswordGet', [RegisterController::class, 'showChangePasswordGet'])->middleware(Spatie\Csp\AddCspHeaders::class,'auth');
+Route::get('/register/showChangePasswordGet', [RegisterController::class, 'showChangePasswordGet'])->middleware(Spatie\Csp\AddCspHeaders::class, 'auth');
 Route::post('/register/showChangePasswordGet', [RegisterController::class, 'changePasswordUser'])->middleware('auth');
 Route::post('/register', [RegisterController::class, 'store'])->middleware('admin');
 
 
 Route::resource('/posts', PostController::class)->only(['index', 'show'])->middleware(Spatie\Csp\AddCspHeaders::class);
 
-Route::get('/dashboard', function(){
-    return view ('dashboard.index',[
+Route::get('/dashboard', function () {
+    return view('dashboard.index', [
         'properties' => ImageProperty::where('property', 'Logo')->latest()->get(),
-        'profils' => Profil::latest()->get(),   
+        'profils' => Profil::latest()->get(),
     ]);
 })->middleware('auth');
 
@@ -158,7 +163,7 @@ Route::resource('/dashboard/categories', AdminCategoryController::class)->except
 Route::resource('/dashboard/footers', FooterController::class)->except('show')->middleware('admin');
 
 Route::resource('/dashboard/properties', ImagePropertyController::class)->except('show')->middleware('admin');
-// 
+//
 
 Route::resource('/dashboard/profils', ProfilController::class)->middleware('admin');
 
